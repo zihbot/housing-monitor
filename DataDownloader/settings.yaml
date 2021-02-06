@@ -1,0 +1,12 @@
+default:
+  ingatlanCom:
+    pairs: [ [
+          "s", "#detailspage > div.site__content > div.card.listing > div.listing-left > div.listing-parameters > div.parameter.parameter-area-size > span.parameter-title",
+          "s", "#detailspage > div.site__content > div.card.listing > div.listing-left > div.listing-parameters > div.parameter.parameter-area-size > span.parameter-value"
+        ], [
+          "s", "#detailspage > div.site__content > div.card.listing > div.listing-left > div.listing-parameters > div.parameter.parameter-room > span.parameter-title",
+          "s", "#detailspage > div.site__content > div.card.listing > div.listing-left > div.listing-parameters > div.parameter.parameter-room > span.parameter-value"
+        ], [
+          "Fs", "#detailspage > div.site__content > div.site-width > div.container-left-column > div.card.details > div.paramterers > table:nth-child(1) > tbody > tr:nth-child({0}) > td:nth-child(1)",
+          "Fs", "#detailspage > div.site__content > div.site-width > div.container-left-column > div.card.details > div.paramterers > table:nth-child(1) > tbody > tr:nth-child({0}) > td:nth-child(2)"
+        ] ]
