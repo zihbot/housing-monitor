@@ -1,1 +1,6 @@
 workspace*
+.*
+bin/
+build/
+gradle*
+!.gitignore
