@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'housing_monitor'
+      MYSQL_USER: 'monitor'
+      MYSQL_PASSWORD: 'rVcfuNyKXKQW'
+      MYSQL_ROOT_PASSWORD: 'quxPvpjkdQS6'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./Database:/docker-entrypoint-initdb.d
+volumes:
+  dbdata:
