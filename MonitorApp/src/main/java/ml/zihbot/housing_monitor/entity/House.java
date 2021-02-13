@@ -1,15 +1,16 @@
 package ml.zihbot.housing_monitor.entity;
 
-import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-@Entity(name = "houses")
-public class House implements Serializable {
+@Entity(name = "HOUSES")
+public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -17,6 +18,9 @@ public class House implements Serializable {
 
     @Column(name = "URL", nullable = false)
     private String url;
+
+    @OneToMany(mappedBy = "house")
+    private List<Property> properties;
 
     private House() {}
 
@@ -39,4 +43,13 @@ public class House implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
+    }
+
 }
