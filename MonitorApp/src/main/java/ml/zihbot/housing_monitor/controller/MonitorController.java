@@ -4,16 +4,22 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ml.zihbot.housing_monitor.data_loader.DataLoaderClient;
 import ml.zihbot.housing_monitor.dto.KeyValuePair;
+import ml.zihbot.housing_monitor.dto.Url;
 import ml.zihbot.housing_monitor.entity.House;
 import ml.zihbot.housing_monitor.entity.Property;
 import ml.zihbot.housing_monitor.repository.HouseRepository;
 import ml.zihbot.housing_monitor.repository.PropertyRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("rest")
@@ -51,4 +57,12 @@ public class MonitorController {
         houseRepository.save(house);
         return pairs;
     }
+
+    @PostMapping(value="saveHouse")
+    public ResponseEntity<?> postMethodName(@RequestBody Url url) {
+        houseRepository.save(new House(url.getUrl()));
+        
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
 }

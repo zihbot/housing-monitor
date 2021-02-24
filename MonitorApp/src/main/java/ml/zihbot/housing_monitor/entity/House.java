@@ -22,7 +22,7 @@ public class House {
     @OneToMany(mappedBy = "house")
     private List<Property> properties;
 
-    private House() {}
+    protected House() {}
 
     public House(String url) {
         this.url = url;
