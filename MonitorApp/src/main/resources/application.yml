@@ -3,3 +3,5 @@ spring:
         url: 'jdbc:mysql://127.0.0.1:3306/housing_monitor'
         username: 'monitor'
         password: 'rVcfuNyKXKQW'
+datadownloader:
+    url: 'http://127.0.0.1:3001'

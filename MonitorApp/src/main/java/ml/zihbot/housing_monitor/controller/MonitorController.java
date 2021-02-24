@@ -17,6 +17,8 @@ import ml.zihbot.housing_monitor.entity.House;
 import ml.zihbot.housing_monitor.entity.Property;
 import ml.zihbot.housing_monitor.repository.HouseRepository;
 import ml.zihbot.housing_monitor.repository.PropertyRepository;
+import ml.zihbot.housing_monitor.service.DataDownloaderService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,12 +28,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MonitorController {
     @Autowired
     DataLoaderClient dataLoaderClient;
-
     @Autowired
     HouseRepository houseRepository;
-
     @Autowired
     PropertyRepository propertyRepository;
+    @Autowired
+    DataDownloaderService dataDownloaderService;
 
     @GetMapping("pairs")
     public List<KeyValuePair> getPairs() {
@@ -60,8 +62,12 @@ public class MonitorController {
 
     @PostMapping(value="saveHouse")
     public ResponseEntity<?> postMethodName(@RequestBody Url url) {
-        houseRepository.save(new House(url.getUrl()));
-        
+        List<House> houses = houseRepository.findByUrl(url.getUrl());
+        House house = houses.isEmpty() ? new House(url.getUrl()) : houses.get(0);
+        houseRepository.save(house);
+
+        dataDownloaderService.saveProperties(house);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
