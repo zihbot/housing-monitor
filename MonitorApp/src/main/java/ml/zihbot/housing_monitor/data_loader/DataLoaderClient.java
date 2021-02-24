@@ -13,7 +13,7 @@ public class DataLoaderClient {
     WebClient client;
 
     public DataLoaderClient() {
-        this.client = WebClient.create("https://418fe6d5-a37a-4336-8552-b996d92180fe.mock.pstmn.io");
+        this.client = WebClient.create("http://127.0.0.1:3001");
     }
     
     public List<KeyValuePair> getPairs(String url) {
