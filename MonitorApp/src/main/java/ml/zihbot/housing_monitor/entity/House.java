@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class House {
     @Column(name = "URL", nullable = false)
     private String url;
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
     private List<Property> properties;
 
     protected House() {}

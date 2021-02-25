@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import ml.zihbot.housing_monitor.data_loader.DataLoaderClient;
@@ -26,7 +27,7 @@ public class DataDownloaderService {
 
     Logger logger = LoggerFactory.getLogger(DataDownloaderService.class);
 
-    public void saveProperties(House house) {
+    public void updateProperties(House house) {
         List<KeyValuePair> pairs = dataLoaderClient.getPairs(house.getUrl());
 
         for (KeyValuePair pair : pairs) {
@@ -44,5 +45,12 @@ public class DataDownloaderService {
             propertyRepository.save(property);
         }
         houseRepository.save(house);
+    }
+
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void scheduledPropertyUpdate() {
+        for (House house : houseRepository.findAll()) {
+            updateProperties(house);
+        }
     }
 }
