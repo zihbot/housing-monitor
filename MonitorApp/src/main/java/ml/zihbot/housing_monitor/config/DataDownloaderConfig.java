@@ -1,9 +1,9 @@
 package ml.zihbot.housing_monitor.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "datadownloader")
 public class DataDownloaderConfig {
     private String url;

@@ -66,7 +66,7 @@ public class MonitorController {
         House house = houses.isEmpty() ? new House(url.getUrl()) : houses.get(0);
         houseRepository.save(house);
 
-        dataDownloaderService.saveProperties(house);
+        dataDownloaderService.updateProperties(house);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
