@@ -1,18 +1,19 @@
 import React from 'react';
-import { useGetHouseProperties } from './HouseDataClient';
+import { useRestGetClient } from './HouseDataClient';
+import { KeyValuePair } from './model';
 
 type Props = {
     id: bigint,
     onBack: () => void
 }
 
-export const HouseData: React.FC<Props> = ({id, onBack}) => {
-    const client = useGetHouseProperties(id);
+const HouseData: React.FC<Props> = ({id, onBack}) => {
+    const client = useRestGetClient<KeyValuePair[]>('properties/' + id);
 
     return (<div>
             <table>
                 <tbody>
-                { client.data.map(kv => 
+                { client.result.data && client.result.data.map(kv => 
                     <tr key={kv.key}>
                         <td>{kv.key}</td>
                         <td>{kv.value}</td>
@@ -24,3 +25,5 @@ export const HouseData: React.FC<Props> = ({id, onBack}) => {
         </div>
     );
 }
+
+export default HouseData

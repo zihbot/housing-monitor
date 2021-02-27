@@ -1,6 +1,6 @@
 import React from 'react';
-import { HouseData } from './HouseData';
-import { HousesList } from './HousesList';
+import HouseData from './HouseData';
+import HousesList from './HousesList';
 
 type State = {
     selectedHouse?: bigint
