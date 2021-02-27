@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "a001c19f-9738-4f7b-930e-932653b9eb4f",
+		"name": "HouseMonitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "properties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/rest/properties/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"rest",
+						"properties",
+						"4"
+					]
+				},
+				"description": "List all Users matching query criteria."
+			},
+			"response": []
+		},
+		{
+			"name": "house",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\": \"https://ingatlan.com/ix-ker/elado%2Blakas/tegla-epitesu-lakas/31119133\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/rest/house",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"rest",
+						"house"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "house",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/rest/house",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"rest",
+						"house"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8080"
+		}
+	]
+}

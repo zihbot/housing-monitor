@@ -27,7 +27,7 @@ public class DataDownloaderService {
 
     Logger logger = LoggerFactory.getLogger(DataDownloaderService.class);
 
-    public void updateProperties(House house) {
+    public House updateProperties(House house) {
         List<KeyValuePair> pairs = dataLoaderClient.getPairs(house.getUrl());
 
         for (KeyValuePair pair : pairs) {
@@ -44,10 +44,10 @@ public class DataDownloaderService {
             property.setValue(pair.getValue());
             propertyRepository.save(property);
         }
-        houseRepository.save(house);
+        return houseRepository.save(house);
     }
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void scheduledPropertyUpdate() {
         for (House house : houseRepository.findAll()) {
             updateProperties(house);
