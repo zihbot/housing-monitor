@@ -2,7 +2,6 @@ package ml.zihbot.housing_monitor.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ml.zihbot.housing_monitor.data_loader.DataLoaderClient;
 import ml.zihbot.housing_monitor.dto.HouseListing;
 import ml.zihbot.housing_monitor.dto.KeyValuePair;
 import ml.zihbot.housing_monitor.dto.Url;
 import ml.zihbot.housing_monitor.entity.House;
-import ml.zihbot.housing_monitor.entity.Property;
 import ml.zihbot.housing_monitor.repository.HouseRepository;
 import ml.zihbot.housing_monitor.repository.PropertyRepository;
 import ml.zihbot.housing_monitor.service.DataDownloaderService;
