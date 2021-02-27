@@ -1,34 +1,46 @@
-import { useEffect, useState } from "react";
-import { HouseElement, KeyValuePair } from "./model";
+import { useCallback, useEffect, useState } from 'react';
 
-export interface HouseProperties {
-    data: KeyValuePair[];
+type GetClient<T> = {
+    result: {data: T | undefined},
+    getRequest: () => void
 }
 
-export interface HouseElementsList {
-    data: HouseElement[];
-}
+export const useRestGetClient = <T extends unknown>(uri: string): GetClient<T> => {
+    const [result, setResult] = useState<{data: T | undefined}>({ data: undefined });
 
-export const useGetHouseProperties = (id: bigint) => {
-    const [result, setResult] = useState<HouseProperties>({ data: [] });
-
-    useEffect(() => {
-        fetch('http://127.0.0.1:3000/rest/properties/' + id)
+    const getRequest = useCallback(() => {
+        fetch('http://127.0.0.1:3000/rest/' + uri)
             .then(r => r.json())
             .then(r => setResult({ data: r }) );
     }, []);
 
-    return result;
+    useEffect(getRequest, []);
+
+    return {result, getRequest};
 };
 
-export const useGetHousesList = () => {
-    const [result, setResult] = useState<HouseElementsList>({ data: [] });
+type PostClient<T> = {
+    result: {data: T | undefined},
+    postRequest: (postData: object) => void
+}
 
-    useEffect(() => {
-        fetch('http://127.0.0.1:3000/rest/house/')
+export const useRestPostClient = <T extends unknown>(
+        uri: string, 
+        finishCallback: () => void = () => {}): PostClient<T> => {
+    const [result, setResult] = useState<{data: T | undefined}>({ data: undefined });
+
+    const postRequest = useCallback((postData) => {
+        fetch('http://127.0.0.1:3000/rest/' + uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
             .then(r => r.json())
-            .then(r => setResult({ data: r }) );
+            .then(r => { setResult({ data: r }); 
+                finishCallback()});
     }, []);
 
-    return result;
+    return {result, postRequest};
 };
