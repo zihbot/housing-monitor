@@ -1,18 +1,26 @@
 import React from 'react';
-import useGetHouseData from './HouseDataClient';
+import { useGetHouseProperties } from './HouseDataClient';
 
-export const HouseData: React.FC<{}> = () => {
-    const client = useGetHouseData();
+type Props = {
+    id: bigint,
+    onBack: () => void
+}
+
+export const HouseData: React.FC<Props> = ({id, onBack}) => {
+    const client = useGetHouseProperties(id);
 
     return (<div>
             <table>
-            { client.data.map(kv => 
-                <tr>
-                    <td>{kv.key}</td>
-                    <td>{kv.value}</td>
-                </tr>
-            ) }
+                <tbody>
+                { client.data.map(kv => 
+                    <tr key={kv.key}>
+                        <td>{kv.key}</td>
+                        <td>{kv.value}</td>
+                    </tr>
+                ) }
+                </tbody>
             </table>
+            <a onClick={onBack}>Vissza</a>
         </div>
     );
 }

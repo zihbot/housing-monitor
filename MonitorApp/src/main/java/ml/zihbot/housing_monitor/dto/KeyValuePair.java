@@ -2,8 +2,15 @@ package ml.zihbot.housing_monitor.dto;
 
 public class KeyValuePair {
     String key;
-
     String value;
+
+    public KeyValuePair() {
+    }
+    
+    public KeyValuePair(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }    
 
     public String getKey() {
         return key;

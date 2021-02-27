@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
-import { KeyValuePair } from "./model";
+import { HouseElement, KeyValuePair } from "./model";
 
 export interface HouseProperties {
     data: KeyValuePair[];
 }
 
-const useGetHouseData = () => {
+export interface HouseElementsList {
+    data: HouseElement[];
+}
+
+export const useGetHouseProperties = (id: bigint) => {
     const [result, setResult] = useState<HouseProperties>({ data: [] });
 
     useEffect(() => {
-        fetch('https://19dd62d4-b2bd-417f-96b6-12f45e56fbee.mock.pstmn.io/rest/pairs?url=https')
+        fetch('http://127.0.0.1:3000/rest/properties/' + id)
             .then(r => r.json())
             .then(r => setResult({ data: r }) );
     }, []);
 
     return result;
 };
-export default useGetHouseData;
+
+export const useGetHousesList = () => {
+    const [result, setResult] = useState<HouseElementsList>({ data: [] });
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:3000/rest/house/')
+            .then(r => r.json())
+            .then(r => setResult({ data: r }) );
+    }, []);
+
+    return result;
+};
