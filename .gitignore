@@ -1,5 +1,6 @@
 workspace*
 .*
+!.dockerignore
 bin/
 build/
 gradle*

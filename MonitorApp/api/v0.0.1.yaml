@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: Housing Monitor
+  description: House listings monitor. Original project at <https://github.com/zihbot/housing-monitor>
+  version: 0.0.1
+paths:
+  /house:
+    get:
+      responses:
+        200:
+          description: Watched houses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    url:
+                      type: string
+                example: [{id: 4, url: "https://ingatlan.com/ix-ker/elado%2Blakas/tegla-epitesu-lakas/31119133"}]
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+      responses:
+        201:
+          description: Created new listings
+  /properties/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      responses:
+        200:
+          description: Properties of house
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    value:
+                      type: string
+                example: 
+                  [{key: "Ár", value: "50 millió Ft"},
+                  {key: "Terület", value: "52 m²"},
+                  {key: "Azonosító", value: "{{ urlParam 'id' }}" }]
