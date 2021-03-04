@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class DataDownloaderService {
 
     public House updateProperties(House house) {
         List<KeyValuePair> pairs = dataLoaderClient.getPairs(house.getUrl());
+        logger.info("updateProperties() pairs.size()={}", pairs.size());
 
         for (KeyValuePair pair : pairs) {
             Optional<Property> prop = house.getProperties().stream()
@@ -40,6 +42,7 @@ public class DataDownloaderService {
                 property = new Property();
                 property.setHouse(house);
                 property.setKey(pair.getKey());
+                house.getProperties().add(property);
             }
             property.setValue(pair.getValue());
             propertyRepository.save(property);
