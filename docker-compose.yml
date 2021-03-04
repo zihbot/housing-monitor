@@ -1,5 +1,11 @@
 version: '3.3'
 services:
+  webui:
+    build: 'WebUi'
+    ports: 
+      - '80:80'
+    depends_on:
+      - monitorapp
   monitorapp:
     build: 'MonitorApp/'
     environment:
