@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,6 +19,8 @@ import reactor.core.publisher.Mono;
 public class DataLoaderClient {
     @Autowired
     private DataDownloaderConfig dataDownloaderConfig;
+    
+    Logger logger = LoggerFactory.getLogger(DataLoaderClient.class);
 
     WebClient client;
 
@@ -26,8 +30,9 @@ public class DataLoaderClient {
     }
     
     public List<KeyValuePair> getPairs(String url) {
-        Mono<KeyValuePair[]> result = client.get().uri("/pairs")
-            .attribute("url", url).retrieve().bodyToMono(KeyValuePair[].class);
+        Mono<KeyValuePair[]> result = client.get().uri(uriBuilder -> uriBuilder
+                .path("/pairs").queryParam("url", url).build())
+            .retrieve().bodyToMono(KeyValuePair[].class);
         return Arrays.asList(result.block());
     }
 }

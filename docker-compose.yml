@@ -1,6 +1,24 @@
 version: '3.3'
 services:
-  db:
+  webui:
+    build: 'WebUi/'
+    ports: 
+      - '80:80'
+    depends_on:
+      - monitorapp
+  monitorapp:
+    build: 'MonitorApp/'
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://database:3306/housing_monitor'
+      SPRING_DATASOURCE_USERNAME: 'monitor'
+      SPRING_DATASOURCE_PASSWORD: 'rVcfuNyKXKQW'
+      DATADOWNLOADER_URL: 'http://datadownloader'
+    depends_on:
+      - database
+      - datadownloader
+  datadownloader:
+    build: 'DataDownloader/'
+  database:
     image: mysql:8.0
     restart: always
     environment:
