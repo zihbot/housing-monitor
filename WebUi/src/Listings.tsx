@@ -1,12 +1,12 @@
 import React from 'react';
-import HouseData from './HouseData';
-import HousesList from './HousesList';
+import { HouseData } from './HouseData';
+import { HousesList } from './HousesList';
 
 type State = {
     selectedHouse?: bigint
 }
 
-class Listings extends React.Component<{}, State> {
+export class Listings extends React.Component<{}, State> {
     constructor(props: {}) {
         super(props);
 
@@ -28,5 +28,3 @@ class Listings extends React.Component<{}, State> {
         )
     }
 }
-
-export default Listings

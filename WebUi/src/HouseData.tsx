@@ -7,7 +7,7 @@ type Props = {
     onBack: () => void
 }
 
-const HouseData: React.FC<Props> = ({id, onBack}) => {
+export const HouseData: React.FC<Props> = ({id, onBack}) => {
     const client = useRestGetClient<KeyValuePair[]>('properties/' + id);
 
     return (<div>
@@ -25,5 +25,3 @@ const HouseData: React.FC<Props> = ({id, onBack}) => {
         </div>
     );
 }
-
-export default HouseData

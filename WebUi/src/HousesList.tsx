@@ -6,7 +6,7 @@ type Props = {
     onSelectHouse: (id: bigint) => void
 }
 
-const HousesList: React.FC<Props> = ({onSelectHouse}) => {
+export const HousesList: React.FC<Props> = ({onSelectHouse}) => {
     const getClient = useRestGetClient<HouseElement[]>('house');
     const postClient = useRestPostClient<{}>('house', getClient.getRequest);
 
@@ -33,5 +33,3 @@ const HousesList: React.FC<Props> = ({onSelectHouse}) => {
         </div>
     );
 }
-
-export default HousesList

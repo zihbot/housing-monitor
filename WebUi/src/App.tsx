@@ -1,5 +1,5 @@
 import React from 'react';
-import Listings from './Listings';
+import { Listings } from './Listings';
 
 function App() {
   return (
