@@ -2,6 +2,7 @@
   "name": "housing-monitor",
   "version": "0.0.1",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
