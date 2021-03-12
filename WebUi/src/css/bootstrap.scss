@@ -1,0 +1,17 @@
+
+$lightSlateGrey: rgb(110, 136, 152);
+$firebrick: rgb(190, 92, 105);
+$nyanza: rgb(167, 247, 147);
+$blueViolet: rgb(78, 20, 140);
+$lightCyan: rgb(251, 253, 253);
+
+$theme-colors: (
+    "primary": $nyanza,
+    "secondary": $firebrick,
+    "light": $lightSlateGrey,
+    "dark": $blueViolet
+);
+
+$white: $lightCyan;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

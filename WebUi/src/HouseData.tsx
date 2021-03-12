@@ -11,17 +11,13 @@ export const HouseData: React.FC<Props> = ({id, onBack}) => {
     const client = useRestGetClient<KeyValuePair[]>('properties/' + id);
 
     return (<div>
-            <table>
-                <tbody>
                 { client.result.data && client.result.data.map(kv => 
-                    <tr key={kv.key}>
-                        <td>{kv.key}</td>
-                        <td>{kv.value}</td>
-                    </tr>
+                    <div className='row pb-1' key={kv.key}>
+                        <div className='col-3'>{kv.key}</div>
+                        <div className='col-9'>{kv.value}</div>
+                    </div>
                 ) }
-                </tbody>
-            </table>
-            <a onClick={onBack}>Vissza</a>
+            <button className='btn btn-secondary' onClick={onBack}>Vissza</button>
         </div>
     );
 }
