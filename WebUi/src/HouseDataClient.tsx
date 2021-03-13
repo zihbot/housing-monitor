@@ -9,7 +9,7 @@ export const useRestGetClient = <T extends unknown>(uri: string): GetClient<T> =
     const [result, setResult] = useState<{data: T | undefined}>({ data: undefined });
 
     const getRequest = useCallback(() => {
-        fetch('http://127.0.0.1:3000/rest/' + uri)
+        fetch('rest/' + uri)
             .then(r => r.json())
             .then(r => setResult({ data: r }) );
     }, []);
@@ -30,7 +30,7 @@ export const useRestPostClient = <T extends unknown>(
     const [result, setResult] = useState<{data: T | undefined}>({ data: undefined });
 
     const postRequest = useCallback((postData) => {
-        fetch('http://127.0.0.1:3000/rest/' + uri, {
+        fetch('rest/' + uri, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,8 +38,8 @@ export const useRestPostClient = <T extends unknown>(
             body: JSON.stringify(postData)
         })
             .then(r => r.json())
-            .then(r => { setResult({ data: r }); 
-                finishCallback()});
+            .then(r => setResult({ data: r }))
+            .finally(finishCallback);
     }, []);
 
     return {result, postRequest};
