@@ -20,7 +20,7 @@ public class DataLoaderClient {
     @Autowired
     private DataDownloaderConfig dataDownloaderConfig;
     
-    Logger logger = LoggerFactory.getLogger(DataLoaderClient.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     WebClient client;
 
