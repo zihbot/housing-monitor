@@ -30,6 +30,7 @@ public class DataLoaderClient {
     }
     
     public List<KeyValuePair> getPairs(String url) {
+        logger.info("getPairs() url=", url);
         Mono<KeyValuePair[]> result = client.get().uri(uriBuilder -> uriBuilder
                 .path("/pairs").queryParam("url", url).build())
             .retrieve().bodyToMono(KeyValuePair[].class);
