@@ -11,8 +11,8 @@ pipeline {
         }
         stage("Cleanup") {
             steps {
-                sh "docker image prune"
-                sh "docker image prune --filter 'stage=intermediate'"
+                sh "docker image prune -f"
+                sh "docker image prune -f --filter 'stage=intermediate'"
             }
         }
     }
