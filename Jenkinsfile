@@ -6,6 +6,7 @@ pipeline {
         stage("Compose up") {
             steps {
                 sh "docker-compose up -d"
+                sh "docker-compose logs -t"
             }
         }
         stage("Cleanup") {
