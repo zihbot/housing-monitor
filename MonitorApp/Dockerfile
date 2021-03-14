@@ -13,5 +13,4 @@ RUN chmod +x /wait
 
 COPY --from=build /home/gradle/src/build/libs/*.jar MonitorApp.jar
 EXPOSE 8080
-ENTRYPOINT ["/wait"]
-RUN ["java", "-jar", "-Dspring.profiles.active=prod", "MonitorApp.jar"]
+ENTRYPOINT ["sh", "-c", "/wait && java -jar -Dspring.profiles.active=prod MonitorApp.jar"]
