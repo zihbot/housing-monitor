@@ -1,7 +1,26 @@
 spring:
+    profiles:
+        active: 'dev'
     datasource:
-        url: 'jdbc:mysql://127.0.0.1:3306/housing_monitor'
         username: 'monitor'
         password: 'rVcfuNyKXKQW'
+
+---
+spring:
+    config:
+        activate:
+            on-profile: dev
+    datasource:
+        url: 'jdbc:mysql://127.0.0.1:3306/housing_monitor'
 datadownloader:
-    url: 'http://127.0.0.1:5000'
+    url: 'http://127.0.0.1:3001'
+
+---
+spring:
+    config:
+        activate:
+            on-profile: prod
+    datasource:
+        url: 'jdbc:mysql://database:3306/housing_monitor'
+datadownloader:
+    url: 'http://datadownloader'

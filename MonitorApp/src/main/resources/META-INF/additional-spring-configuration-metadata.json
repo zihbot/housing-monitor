@@ -1,0 +1,12 @@
+{"groups": [
+    {
+        "name": "datadownloader",
+        "type": "ml.zihbot.housing_monitor.config.DataDownloaderConfig",
+        "sourceType": "ml.zihbot.housing_monitor.config.DataDownloaderConfig"
+    }], 
+"properties": [{
+        "name": "datadownloader.url",
+        "type": "java.lang.String",
+        "description": "URL for DataDownloader"
+    }]
+}
