@@ -3,11 +3,16 @@
 pipeline {
     agent any
     stages {
-        stage("Test") {
+        stage("Compose up") {
             steps {
-                echo "Hello world!",
-                sh "pwd",
-                sh "ls -la"
+                sh "docker-compose up -d"
+                sh "docker-compose logs -t --tail 300"
+            }
+        }
+        stage("Cleanup") {
+            steps {
+                sh "docker image prune -f"
+                sh "docker image prune -f --filter label=stage=intermediate"
             }
         }
     }
