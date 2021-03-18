@@ -1,5 +1,6 @@
 package ml.zihbot.housing_monitor.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +28,15 @@ public class DataDownloaderService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public House updateProperties(House house) {
+    public void updateProperties(Long houseId) {
+        House house = houseRepository.findById(houseId).get();
         List<KeyValuePair> pairs = dataLoaderClient.getPairs(house.getUrl());
         logger.info("updateProperties() pairs.size()={}", pairs.size());
 
+        List<Property> properties = house.getProperties();
+        if (properties == null) properties = new ArrayList<>();
         for (KeyValuePair pair : pairs) {
-            Optional<Property> prop = house.getProperties().stream()
+            Optional<Property> prop = properties.stream()
                     .filter(p -> p.getKey().equals(pair.getKey())).findAny();
             Property property = null;
             if (prop.isPresent()) {
@@ -41,18 +45,21 @@ public class DataDownloaderService {
                 property = new Property();
                 property.setHouse(house);
                 property.setKey(pair.getKey());
-                house.getProperties().add(property);
             }
             property.setValue(pair.getValue());
-            propertyRepository.save(property);
+
+            if (!properties.contains(property)) {
+                properties.add(property);
+            }
         }
-        return houseRepository.save(house);
+        propertyRepository.saveAll(properties);
+        propertyRepository.flush();
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
     public void scheduledPropertyUpdate() {
         for (House house : houseRepository.findAll()) {
-            updateProperties(house);
+            updateProperties(house.getId());
         }
     }
 }

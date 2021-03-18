@@ -1,7 +1,6 @@
 package ml.zihbot.housing_monitor.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +34,11 @@ public class MonitorController {
     DataDownloaderService dataDownloaderService;
 
     @GetMapping("properties/{houseId}")
-    public ResponseEntity<?> getProperties(@PathVariable Long houseId) {
-        Optional<House> houseOpt = houseRepository.findById(houseId);
-        if (!houseOpt.isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
-        House house = dataDownloaderService.updateProperties(houseOpt.get());
+    public List<KeyValuePair> getProperties(@PathVariable Long houseId) {
+        House house = houseRepository.findById(houseId).get();
 
-        List<KeyValuePair> props = house.getProperties().stream().map(prop -> new KeyValuePair(prop.getKey(), prop.getValue()))
+        return house.getProperties().stream().map(prop -> new KeyValuePair(prop.getKey(), prop.getValue()))
                 .collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(props);
     }
 
     @GetMapping(value="house")
@@ -58,9 +51,9 @@ public class MonitorController {
     public ResponseEntity<?> postHouse(@RequestBody Url url) {
         List<House> houses = houseRepository.findByUrl(url.getUrl());
         House house = houses.isEmpty() ? new House(url.getUrl()) : houses.get(0);
-        house = houseRepository.save(house);
+        house = houseRepository.saveAndFlush(house);
 
-        dataDownloaderService.updateProperties(house);
+        dataDownloaderService.updateProperties(house.getId());
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

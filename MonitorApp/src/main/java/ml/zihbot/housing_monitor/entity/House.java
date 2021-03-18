@@ -20,7 +20,7 @@ public class House {
     @Column(name = "URL", nullable = false)
     private String url;
 
-    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<Property> properties;
 
     protected House() {}
