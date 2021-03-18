@@ -14,7 +14,7 @@
 
 -- Dumping structure for table housing_monitor.houses
 CREATE TABLE IF NOT EXISTS `houses` (
-  `id` bigint NOT NULL DEFAULT '0',
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `url` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
