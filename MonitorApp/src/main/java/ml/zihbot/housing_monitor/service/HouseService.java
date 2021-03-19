@@ -14,7 +14,6 @@ import ml.zihbot.housing_monitor.dto.mapper.HouseMapper;
 import ml.zihbot.housing_monitor.entity.House;
 import ml.zihbot.housing_monitor.entity.Property;
 import ml.zihbot.housing_monitor.repository.HouseRepository;
-import ml.zihbot.housing_monitor.repository.PropertyRepository;
 
 @Service
 public class HouseService {
