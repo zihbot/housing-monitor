@@ -47,11 +47,9 @@ public class HouseService {
             String key = kvp.getKey();
             Property prop = house.getProperties().stream().filter(p -> key.equals(p.getKey())).findAny().orElse(null);
             if (prop == null) {
-                prop = new Property();
-                prop.setHouse(house);
-                prop.setKey(key);
+                prop = new Property(house, key);
                 house.getProperties().add(prop);
-            } 
+            }
             prop.setValue(kvp.getValue());
         }
 

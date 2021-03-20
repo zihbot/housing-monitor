@@ -26,6 +26,13 @@ public class Property {
     @Column(name = "PROP_VALUE")
     private String value;
 
+    protected Property() {}
+
+    public Property(House house, String key) {
+        this.house = house;
+        this.key = key;
+    }
+
     public Long getId() {
         return id;
     }

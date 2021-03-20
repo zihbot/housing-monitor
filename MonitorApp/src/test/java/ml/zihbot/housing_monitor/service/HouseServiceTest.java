@@ -9,17 +9,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import ml.zihbot.housing_monitor.entity.House;
 import ml.zihbot.housing_monitor.repository.HouseRepository;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {
     
     @Mock
@@ -30,8 +31,8 @@ public class HouseServiceTest {
 
     private static List<House> houses;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void setup() {
         houses = new ArrayList<>();
         houses.add(new House("https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/32084485"));
         houses.add(new House("https://ingatlan.com/xi-ker/elado+lakas/tegla-epitesu-lakas/32123745"));

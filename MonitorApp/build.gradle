@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+  	compileOnly 'org.projectlombok:lombok'
 	compile 'org.springframework.boot:spring-boot-starter-webflux:2.4.2'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
