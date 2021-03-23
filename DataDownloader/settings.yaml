@@ -13,3 +13,7 @@ default:
           "format_css", "div.paramterers > table > tr:nth-child({0}) > td:nth-child(1)",
           "format_css", "div.paramterers > table > tr:nth-child({0}) > td:nth-child(2)"
         ] ]
+development:
+  imageFolder: 'C:\Users\zihbo\Documents\HousingMonitor\DataDownloader\.img'
+production:
+  imageFolder: "/img/"
