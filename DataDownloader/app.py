@@ -2,7 +2,7 @@ from dynaconf import settings, FlaskDynaconf
 import logging
 import dynaconf
 from dynaconf.base import Settings
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from with_urllib import get_site, save_images
 
 logger = logging.Logger(__name__)
@@ -16,13 +16,38 @@ def get_pairs():
         return jsonify([])
     return jsonify(get_site(url))
 
-@app.route('/images', methods=['GET'])
+@app.route('/images', defaults={'folder': None}, methods=['GET'])
+@app.route('/images/<folder>', methods=['GET'])
+def get_images(folder):
+    url = request.args.get('url')
+    logger.debug('get_images() url={} folder={}'.format(url, folder))
+    if url is None:
+        return jsonify({'dirName': ''})
+    return jsonify({'dirName': save_images(url, folder)})
+
+@app.route('/images/urls', methods=['GET'])
 def get_images():
     url = request.args.get('url')
     logger.debug('get_images() url=' + url)
     if url is None:
-        return jsonify({'dirName': ''})
+        abort(400, 'url value not provided')
+    raise NotImplemented()
     return jsonify({'dirName': save_images(url)})
+
+@app.route('/metadata/<folder>', methods=['GET'])
+def get_metadata(folder):
+    logger.debug('get_metadata() folder=' + folder)
+    raise NotImplemented()
+    return jsonify([])
+
+@app.route('/similarity/<folder>', methods=['GET'])
+def get_similarity(folder):
+    url = request.args.get('url')
+    logger.debug('get_similarity() folder={} url={}'.format(folder, url))
+    if url is None:
+        abort(400, 'url value not provided')
+    raise NotImplemented()
+    return jsonify([])
 
 if __name__ == "__main__":
     app.run()

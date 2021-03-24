@@ -67,7 +67,7 @@ def get_site(url: str) -> list:
     logger.debug('Result: ', str(result))
     return map_dict_to_key_value_list(result)
 
-def save_images(url: str) -> str:
+def save_images(url: str, folder: str = None) -> str:
     req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     html = urlopen(req).read().decode('utf-8')
     #
@@ -75,12 +75,13 @@ def save_images(url: str) -> str:
     imgs = json.loads(literal_eval("'%s'" % re.search('\[.*\]', script)[0]))
     result = [image_obj['large_url'] for image_obj in imgs]
     #
-    dir_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(16))
-    os.mkdir(os.path.join(app.config['imageFolder'], dir_name))
+    if folder is None:
+        folder = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(16))
+    os.mkdir(os.path.join(app.config['imageFolder'], folder))
     for img_url in result:
-        path = os.path.join(app.config['imageFolder'], dir_name, img_url[img_url.rfind('/')+1:])
+        path = os.path.join(app.config['imageFolder'], folder, img_url[img_url.rfind('/')+1:])
         urlretrieve(img_url, path)
-    return dir_name
+    return folder
 
 if __name__ == "__main__":
     #print(get_site("https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/31119133"))
