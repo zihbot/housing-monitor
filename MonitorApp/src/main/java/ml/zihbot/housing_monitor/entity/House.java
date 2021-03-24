@@ -1,7 +1,9 @@
 package ml.zihbot.housing_monitor.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,13 +22,14 @@ public class House {
     @Column(name = "URL", nullable = false)
     private String url;
 
-    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Property> properties;
 
     protected House() {}
 
     public House(String url) {
         this.url = url;
+        this.properties = new ArrayList<>();
     }
 
     public Long getId() {

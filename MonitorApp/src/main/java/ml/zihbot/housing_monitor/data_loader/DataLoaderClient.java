@@ -1,5 +1,7 @@
 package ml.zihbot.housing_monitor.data_loader;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,10 +32,16 @@ public class DataLoaderClient {
     }
     
     public List<KeyValuePair> getPairs(String url) {
-        logger.info("getPairs() url=", url);
-        Mono<KeyValuePair[]> result = client.get().uri(uriBuilder -> uriBuilder
-                .path("/pairs").queryParam("url", url).build())
-            .retrieve().bodyToMono(KeyValuePair[].class);
-        return Arrays.asList(result.block());
+        try {
+            String encodedUrl = URLEncoder.encode(url, "UTF-8");
+            Mono<KeyValuePair[]> result = client.get().uri(uriBuilder -> 
+                uriBuilder
+                    .path("/pairs").queryParam("url", encodedUrl).build())
+                .retrieve().bodyToMono(KeyValuePair[].class);
+            return Arrays.asList(result.block());
+        } catch (UnsupportedEncodingException e) {
+            logger.error("getPairs wrong url", e);
+            return List.of();
+        }
     }
 }
