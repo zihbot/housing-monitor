@@ -3,7 +3,7 @@ import logging
 import dynaconf
 from dynaconf.base import Settings
 from flask import Flask, jsonify, request, abort
-from with_urllib import get_site, save_images
+from with_urllib import get_site, save_images, get_image_urls
 
 logger = logging.Logger(__name__)
 app = Flask(__name__)
@@ -31,8 +31,7 @@ def get_images():
     logger.debug('get_images() url=' + url)
     if url is None:
         abort(400, 'url value not provided')
-    raise NotImplemented()
-    return jsonify({'dirName': save_images(url)})
+    return jsonify({'urls': get_image_urls(url)})
 
 @app.route('/metadata/<folder>', methods=['GET'])
 def get_metadata(folder):

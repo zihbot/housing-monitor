@@ -83,6 +83,16 @@ def save_images(url: str, folder: str = None) -> str:
         urlretrieve(img_url, path)
     return folder
 
+def get_image_urls(url: str) -> list(string):
+    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    html = urlopen(req).read().decode('utf-8')
+    #
+    script = etree.HTML(html).cssselect('.card.listing .listing-left script')[0].xpath('string()')
+    imgs = json.loads(literal_eval("'%s'" % re.search('\[.*\]', script)[0]))
+    result = [image_obj['large_url'] for image_obj in imgs]
+    #
+    return result
+
 if __name__ == "__main__":
     #print(get_site("https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/31119133"))
     print(save_images('https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/31119133'))
