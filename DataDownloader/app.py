@@ -16,9 +16,9 @@ def get_pairs():
         return jsonify([])
     return jsonify(get_site(url))
 
-@app.route('/images', defaults={'folder': None}, methods=['GET'])
-@app.route('/images/<folder>', methods=['GET'])
-def get_images(folder):
+@app.route('/images/download', defaults={'folder': None}, methods=['GET'])
+@app.route('/images/download/<folder>', methods=['GET'])
+def get_images_download(folder):
     url = request.args.get('url')
     logger.debug('get_images() url={} folder={}'.format(url, folder))
     if url is None:
@@ -26,7 +26,7 @@ def get_images(folder):
     return jsonify({'dirName': save_images(url, folder)})
 
 @app.route('/images/urls', methods=['GET'])
-def get_images():
+def get_images_urls():
     url = request.args.get('url')
     logger.debug('get_images() url=' + url)
     if url is None:

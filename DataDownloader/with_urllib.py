@@ -68,13 +68,7 @@ def get_site(url: str) -> list:
     return map_dict_to_key_value_list(result)
 
 def save_images(url: str, folder: str = None) -> str:
-    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    html = urlopen(req).read().decode('utf-8')
-    #
-    script = etree.HTML(html).cssselect('.card.listing .listing-left script')[0].xpath('string()')
-    imgs = json.loads(literal_eval("'%s'" % re.search('\[.*\]', script)[0]))
-    result = [image_obj['large_url'] for image_obj in imgs]
-    #
+    result = get_image_urls(url)
     if folder is None:
         folder = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(16))
     os.mkdir(os.path.join(app.config['imageFolder'], folder))
@@ -83,7 +77,7 @@ def save_images(url: str, folder: str = None) -> str:
         urlretrieve(img_url, path)
     return folder
 
-def get_image_urls(url: str) -> list(string):
+def get_image_urls(url: str) -> list[str]:
     req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     html = urlopen(req).read().decode('utf-8')
     #
