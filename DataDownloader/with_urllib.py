@@ -71,7 +71,9 @@ def save_images(url: str, folder: str = None) -> str:
     result = get_image_urls(url)
     if folder is None:
         folder = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(16))
-    os.mkdir(os.path.join(app.config['imageFolder'], folder))
+    joined_path = os.path.join(app.config['imageFolder'], folder)
+    if not os.path.exists(joined_path):
+        os.mkdir(joined_path)
     for img_url in result:
         path = os.path.join(app.config['imageFolder'], folder, img_url[img_url.rfind('/')+1:])
         urlretrieve(img_url, path)
@@ -89,4 +91,4 @@ def get_image_urls(url: str) -> list[str]:
 
 if __name__ == "__main__":
     #print(get_site("https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/31119133"))
-    print(save_images('https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/31119133'))
+    print(save_images('https://ingatlan.com/ix-ker/elado+lakas/tegla-epitesu-lakas/32025622', './'))
