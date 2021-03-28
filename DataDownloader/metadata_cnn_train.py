@@ -64,8 +64,8 @@ model = tf.keras.Sequential([
     layers.Conv2D(10, 3, activation='relu', name='conv2'),
     layers.MaxPooling2D(name='pool2'),
     layers.Flatten(name='flat'),
-    layers.Dense(128, activation='relu', name='dense'),
-    layers.Dense(num_classes)
+    layers.Dense(128, activation='relu', name='dense1'),
+    layers.Dense(num_classes, name='dense2')
 ])
 model.compile(
   optimizer='adam',
