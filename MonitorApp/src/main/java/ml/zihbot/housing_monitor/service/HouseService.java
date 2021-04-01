@@ -63,6 +63,10 @@ public class HouseService {
         return house.getId();
     }
 
+    public void deleteHouse(Long houseId) {
+        houseRepository.deleteById(houseId);
+    }
+
     public boolean isHouseExists(String url) {
         return houseRepository.findByUrl(url).size() != 0;
     }
